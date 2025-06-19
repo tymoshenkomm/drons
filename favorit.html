@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Обране – 4pok</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav__bar">
+      <a href="index.html">4pok</a>
+      <div class="nav__menu__btn" onclick="toggleMenu()">☰</div>
+    </div>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html">Каталог</a></li>
+      <li><a href="favorit.html">Обране</a></li>
+      <li><a href="cart.html">Кошик</a></li>
+    </ul>
+  </nav>
+
+  <main class="section__container">
+    <h1 class="section__header">Обрані товари</h1>
+    <div id="favorites-container" class="product__grid"></div>
+  </main>
+
+  <footer class="footer__bar">
+    <p>© 2025 4pok. Всі права захищено.</p>
+  </footer>
+
+  <script src="favorit.js"></script>
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

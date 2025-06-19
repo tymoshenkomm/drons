@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+      :root {
+        --primary-color: #dc775e;
+        --primary-color-dark: #bb654f;
+        --text-dark: #171717;
+        --text-light: #525252;
+        --extra-light: #f5f5f5;
+        --white: #ffffff;
+        --max-width: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--extra-light);
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .nav__bar {
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav__links {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        padding: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .nav__links a {
+        color: var(--text-dark);
+        font-weight: 500;
+      }
+
+      .section__container {
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 6rem 1rem 2rem;
+      }
+
+      .section__header {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: var(--text-dark);
+      }
+
+      .product__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+      }
+
+      .product__card {
+        padding: 16px;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        text-align: center;
+      }
+
+      .product__image {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 12px;
+      }
+
+      .product__card h3 {
+        font-size: 1.1rem;
+        margin: 8px 0;
+      }
+
+      .price {
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 12px;
+      }
+
+      .btn, .product__card button {
+        padding: 0.6rem 1.2rem;
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover, .product__card button:hover {
+        background-color: var(--primary-color-dark);
+      }
+
+      @media (max-width: 768px) {
+        .nav__links {
+          flex-direction: column;
+        }
+      }
+    </style>
+    <title>Кошик | 4POK</title>
+  </head>
+  <body>
+    <!-- ШАПКА -->
+    <nav>
+      <div class="nav__bar">
+        <a href="index.html" style="color: rgb(15, 15, 151); font-weight: bold; font-size: 24px">4POK</a>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="index.html#home">Головна</a></li>
+          <li><a href="index.html#about">Про нас</a></li>
+          <li><a href="index.html#product">Каталог</a></li>
+          <li><a href="index.html#gallery">Галерея</a></li>
+          <li><a href="index.html#blog">Блог</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- КОНТЕНТ КОШИКА -->
+    <section class="section__container">
+      <h2 class="section__header">Ваш кошик</h2>
+      <div id="cart-items" class="product__grid"></div>
+      <div style="text-align:center; margin-top: 20px;">
+        <h3>Загальна сума: <span id="total-price">0</span> грн</h3>
+        <button class="btn" onclick="clearCart()">Очистити кошик</button>
+      </div>
+    </section>
+
+    <script>
+      const cartContainer = document.getElementById('cart-items');
+      const totalPriceElement = document.getElementById('total-price');
+
+      function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartContainer.innerHTML = '';
+        let total = 0;
+
+        if (cart.length === 0) {
+          cartContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: gray;">Кошик порожній</p>';
+        }
+
+        cart.forEach((item, index) => {
+          const product = document.createElement('div');
+          product.classList.add('product__card');
+
+          product.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="product__image">
+            <h3>${item.name}</h3>
+            <p class="price">${item.price} грн</p>
+            <button onclick="removeFromCart(${index})">Видалити</button>
+          `;
+
+          total += parseFloat(item.price);
+          cartContainer.appendChild(product);
+        });
+
+        totalPriceElement.textContent = total.toFixed(2);
+      }
+
+      function removeFromCart(index) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+      }
+
+      function clearCart() {
+        localStorage.removeItem('cart');
+        loadCart();
+      }
+
+      loadCart();
+    </script>
+  </body>
+</html>

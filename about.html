@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Про компанію – 4pok</title>
+  <link rel="stylesheet" href="product.css" />
+  <style>
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      margin: 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      background-color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .slide img {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto; /* Центрує по горизонталі */
+  display: block; /* Потрібно для margin auto */
+}
+
+    .slide h3 {
+      margin: 10px 0 5px;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    .slide p {
+      color: var(--text-light);
+      margin: 5px 0;
+    }
+
+    .slider-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .slider-indicators div {
+      width: 12px;
+      height: 12px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider-indicators .active {
+      background-color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav__bar">
+      <a href="index.html">4pok</a>
+      <div class="nav__menu__btn" onclick="toggleMenu()">☰</div>
+    </div>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html">Каталог</a></li>
+      <li><a href="favorit.html">Обране</a></li>
+      <li><a href="cart.html">Кошик</a></li>
+      <li><a href="about.html" class="active">Про компанію</a></li>
+    </ul>
+  </nav>
+
+  <main class="section__container" style="padding: 40px 20px; max-width: 900px; margin: auto;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Про компанію 4pok</h1>
+    <p class="section__description">
+      Ласкаво просимо до <strong>4pok</strong> — українського магазину дронів, створеного з любов'ю до новітніх технологій та свободи польоту.
+    </p>
+    <p class="section__description">
+      Ми спеціалізуємося на продажу якісних, перевірених дронів для зйомки, розваг, а також професійного використання.
+    </p>
+  </main>
+
+  <!-- Слайдер -->
+  <div class="slider-container">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slide">
+        <img src="drone1.webp" alt="FalconeX">
+        <h3>FalconeX</h3>
+        <p>Надпотужний дрон для аерозйомки</p>
+        <p class="price">₴25 999</p>
+      </div>
+      <div class="slide">
+        <img src="drone2.webp" alt="NanoScout">
+        <h3>NanoScout</h3>
+        <p>Компактний та швидкий — ідеально для міста</p>
+        <p class="price">₴15 499</p>
+      </div>
+      <div class="slide">
+        <img src="drone3.webp" alt="SkyHunter">
+        <h3>SkyHunter</h3>
+        <p>Для професіоналів та творчих рішень</p>
+        <p class="price">₴32 990</p>
+      </div>
+    </div>
+    <div class="slider-indicators" id="sliderIndicators">
+      <div class="active"></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <footer class="footer__bar">
+    <p>© 2025 4pok. Всі права захищено.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    // Автоматична прокрутка слайдера
+    const track = document.getElementById("sliderTrack");
+    const indicators = document.getElementById("sliderIndicators").children;
+    let index = 0;
+    const slidesCount = track.children.length;
+
+    function showSlide(i) {
+      track.style.transform = `translateX(-${i * 100}%)`;
+      [...indicators].forEach(ind => ind.classList.remove('active'));
+      indicators[i].classList.add('active');
+    }
+
+    setInterval(() => {
+      index = (index + 1) % slidesCount;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>

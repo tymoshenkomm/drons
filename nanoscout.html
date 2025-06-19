@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Дрон Nano Scout – 4pok</title>
+  <link rel="stylesheet" href="product.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav__bar">
+      <a href="index.html">4pok</a>
+      <div class="nav__menu__btn" onclick="toggleMenu()">☰</div>
+    </div>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html">Каталог</a></li>
+      <li><a href="favorit.html">Обране</a></li>
+      <li><a href="cart.html">Кошик</a></li>
+    </ul>
+  </nav>
+
+  <main class="section__container header__container">
+    <div class="header__image">
+      <img src="drone3.webp" alt="Falcon X" />
+    </div>
+    <div class="header__content">
+      <h1>Дрон <span>Nano Scout</span></h1>
+      <p class="section__description">
+        Потужний дрон для професійної аерозйомки. Ідеальний для фото- та відеозйомок з повітря. Оснащений сучасною стабілізацією та дальнім управлінням.
+      </p>
+      <p class="price" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">₴25 999</p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button
+          class="btn buy-btn"
+          data-id="1"
+          data-name="Nano Scout"
+          data-price="25999"
+          data-img="drone3.webp"
+        >Додати до кошика</button>
+
+        <button
+          class="btn favorite-btn"
+          data-id="1"
+          data-name="Nano Scout"
+          data-price="25999"
+          data-img="drone3.webp"
+        >Додати в обране</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer__bar">
+    <p>© 2025 4pok. Всі права захищено.</p>
+  </footer>
+
+  <script src="product.js"></script>
+</body>
+</html>
